@@ -1,4 +1,4 @@
-
+# merge calendar time intervals
 
 def merge(intervals):
     intervals_sort = sorted(intervals, key=lambda x: x[0])

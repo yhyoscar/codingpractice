@@ -1,5 +1,4 @@
 
-
 def mininsert(string):
     if len(string) <= 1: 
         return 0
