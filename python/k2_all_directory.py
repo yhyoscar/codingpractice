@@ -1,3 +1,5 @@
+# return all the directories and files under a root directory
+
 import os
 
 def print_all_directory(path):
