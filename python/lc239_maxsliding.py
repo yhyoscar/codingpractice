@@ -98,5 +98,35 @@ class Solution:
         else:
             return []
         
+
+class Solution2:
+    def maxSlidingWindow(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        if len(nums)>0:
+            if k==1:
+                return nums                
+            else:
+                tmp = nums[0:k]
+                maxlist = [max(tmp)]
+                for i in range(k,len(nums)):
+                    if nums[i] > maxlist[-1]:
+                        nextmax = nums[i]
+                    else:
+                        if maxlist[-1] == tmp[0]:
+                            nextmax = max(nums[i], max(tmp[1:]))
+                        else:    
+                            nextmax = maxlist[-1]
+                    maxlist.append(nextmax)
+                    tmp.pop(0)
+                    tmp.append(nums[i])
+                return maxlist
+        else:
+            return []
+
 s = Solution()
 s.maxSlidingWindow([1,3,-1,-3,-2,3,6,7], 3)
+

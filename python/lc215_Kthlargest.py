@@ -1,4 +1,4 @@
-ass Solution:
+class Solution:
     def findKthLargest(self, nums, k):
         """
         :type nums: List[int]
