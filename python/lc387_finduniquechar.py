@@ -21,4 +21,43 @@ class Solution(object):
                 return list(s).index(cmin)
         else:
             return -1
+
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        method = 3
         
+        if method == 1:
+            from collections import defaultdict        
+            d = defaultdict(int, {})
+            for x in s: 
+                d[x] += 1
+            i = 0
+            for x in s:
+                if d[x] == 1: return i
+                i += 1
+            return -1
+        
+        if method == 2:
+            from collections import defaultdict        
+            d = defaultdict(list, {})
+            for i in range(len(s)): 
+                d[s[i]].append(i)
+            
+            for x in d.keys():
+                if len(d[x]) == 1: return d[x][0]
+            return -1
+        
+        if method == 3:
+            from collections import defaultdict, OrderedDict      
+            d = OrderedDict()
+            c = defaultdict(int, {})
+            for i in range(len(s))[::-1]:
+                d[s[i]] = i
+                c[s[i]] += 1
+            
+            for x in list(d.keys())[::-1]:
+                if c[x] == 1: return d[x]
+            return -1
+        
+        
+

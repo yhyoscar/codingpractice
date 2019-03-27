@@ -1,32 +1,29 @@
 # LeetCode 286 - Walls and Gates
-import numpy as np
 
 def mindistance(field):
     nrow = len(field); ncol = len(field[0])
+    
+    # left-boundary
     for i in range(nrow):
         if field[i][0] == 0:
-            print(i, 0)
             mindist_BFS(field, i, 0)
-            for x in field: print(x)
-
+    
+    # right-boundary
     for i in range(nrow):
         if field[i][ncol-1] == 0:
-            print(i, ncol-1)
             mindist_BFS(field, i, ncol-1)
-            for x in field: print(x)
 
+    # top-boundary
     for j in range(1,ncol-1):
         if field[0][j] == 0:
-            print(0, j)
             mindist_BFS(field, 0, j)
-            for x in field: print(x)
 
+    # bottom-boundary
     for j in range(1,ncol-1):
         if field[nrow-1][j] == 0:
-            print(nrow-1, j)
             mindist_BFS(field, nrow-1, j)
-            for x in field: print(x)
-            
+    
+    for x in field: print(x) 
     return 
 
 def mindist_BFS(field, i0, j0):
@@ -49,11 +46,11 @@ def mindist_BFS(field, i0, j0):
             queue.append([i,j+1,loc[2]+1])
     return        
 
-e = np.inf
-field= [[e, -1,  0,  e, 0], 
-        [e,  e,  e, -1, e], 
-        [e, -1,  e, -1, e], 
-        [0, -1,  e,  e, e]]
+e = 2147483647
+field= [[e, -1,  0,  e], 
+        [e,  e,  e, -1], 
+        [e, -1,  e, -1], 
+        [0, -1,  e,  e]]
 
 mindistance(field)
     

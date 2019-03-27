@@ -1,4 +1,4 @@
-p data structure and sorting
+
 def heapify(array, n, i):
     if i<n:
         imax = i
@@ -29,4 +29,4 @@ def heapsort(array):
 
 array = [ 6,5,3,1,8,7,2,4]
 heapsort(array)
-array
+print(array)
