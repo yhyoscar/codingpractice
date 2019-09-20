@@ -1,3 +1,4 @@
+''' old code
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, x=None):
@@ -196,5 +197,139 @@ print(codec.serialize(root3, flag=3))
 #print_tree_bfs(root3)
 
 # codec.deserialize(codec.serialize(root))
+
+
+''' 
+
+# new code:
+
+# Definition for a binary tree node.
+class TreeNode(object):
+    def __init__(self, x):
+        self.value = x
+        self.left = None
+        self.right = None
+
+class Codec:
+    
+    method = 'BFS'  # ['DFS', 'BFS']
+    
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+                    
+        if self.method == 'DFS':
+            stack = [root]
+            branch = [0]
+            if root is None:
+                tmp = []
+            else:
+                tmp = [root.value]
+            if root is not None:
+                while len(stack) > 0:
+                    if branch[-1] < 2:
+                        if branch[-1]==0:
+                            if stack[-1].left is None:
+                                tmp.append(None)
+                                branch[-1] += 1
+                            else:
+                                tmp.append(stack[-1].left.value)
+                                branch[-1] += 1
+                                stack.append(stack[-1].left)
+                                branch.append(0)
+                        if branch[-1]==1:
+                            if stack[-1].right is None:
+                                tmp.append(None)
+                                branch[-1] += 1
+                            else:
+                                tmp.append(stack[-1].right.value)
+                                branch[-1] += 1
+                                stack.append(stack[-1].right)
+                                branch.append(0)
+                    else:
+                        stack.pop()
+                        branch.pop()
+            return tmp  
+        
+        if self.method == 'BFS':
+            if root is None:
+                return []
+            else:
+                queue = [root]
+                tmp = [root.value]
+                while len(queue) > 0:
+                    node = queue.pop(0)
+                    if node is not None:
+                        if node.left is None:
+                            tmp.append(None)
+                            queue.append(None)
+                        else:
+                            tmp.append(node.left.value)
+                            queue.append(node.left)
+                        if node.right is None:
+                            tmp.append(None)
+                            queue.append(None)
+                        else:
+                            tmp.append(node.right.value)
+                            queue.append(node.right)
+                return tmp        
+
+            
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        if len(data) == 0:
+            return None
+        else:
+            if self.method == 'DFS':
+                root = TreeNode(data[0])
+                stack = [root]
+                branch = [0]
+                i = 1
+                while i < len(data) and len(stack) > 0:
+                    if branch[-1] < 2:
+                        if data[i] is not None:
+                            x = TreeNode(data[i])
+                            if branch[-1] == 0: stack[-1].left = x
+                            if branch[-1] == 1: stack[-1].right = x
+                            stack.append(x)
+                            branch[-1] += 1
+                            branch.append(0)
+                        else:
+                            branch[-1] += 1
+                        i += 1
+                    else:
+                        stack.pop()
+                        branch.pop()
+                return root    
+            
+            if self.method == 'BFS':
+                root = TreeNode(data[0])
+                queue = [root]
+                i = 1
+                while len(queue) > 0 and i < len(data):
+                    node = queue.pop(0)
+                    if node is None:
+                        i += 1
+                    else:
+                        if data[i] is not None:
+                            node.left = TreeNode(data[i])
+                            queue.append(node.left)
+                        if data[i+1] is not None:
+                            node.right = TreeNode(data[i+1])
+                            queue.append(node.right)
+                        i += 2
+                return root        
+
+# Your Codec object will be instantiated and called as such:
+codec = Codec()
+codec.deserialize(codec.serialize(root))
+
 
 
