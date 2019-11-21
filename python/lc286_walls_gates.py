@@ -7,7 +7,7 @@ def mindistance(field):
     for i in range(nrow):
         if field[i][0] == 0:
             mindist_BFS(field, i, 0)
-    
+
     # right-boundary
     for i in range(nrow):
         if field[i][ncol-1] == 0:
