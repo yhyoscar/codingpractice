@@ -1,6 +1,17 @@
 
 from collections import defaultdict
 
+class Node:
+    def __init__(self, key, parent, exchange):
+        self.key = key
+        self.parent = parent
+        self.wt = exchange
+
+#parent = dict{'a':parent of a, 'b':parent of b, ...}
+#nchild = dict('d':1, 'a':2, 'b':1, 'c':0, 'e':0)
+
+#b/e
+
 class Solution:        
     def calcEquation(self, equations, values, queries):
         """
@@ -10,7 +21,6 @@ class Solution:
         :rtype: List[float]
         """
         parent = defaultdict(lambda: None)
-        depth = defaultdict(lambda: int(0))
         wt = defaultdict(lambda: 0.0)        
         for i in range(len(values)):
             if equations[i][0] in list(parent.keys()):
@@ -25,7 +35,8 @@ class Solution:
                 parent[equations[i][1]] = None
                 wt[equations[i][1]] = 1.0
         
-        print(parent, wt)
+        print(dict(parent))
+        print(dict(wt))
 
         out = []
         for q in queries:
@@ -56,7 +67,7 @@ class Solution:
             return current, fac
 
 s = Solution()
-print( s.calcEquation([ ["a", "b"], ["b", "c"] ], [2.0, 3.0], [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ]) )
+print( s.calcEquation([ ["d", "g"], ["d", "a"], ['d','f'], ['b','a'] ], [6.0, 3.0, 4.0, 1.0], [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ]) )
 
 
 
